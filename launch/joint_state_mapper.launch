@@ -1,11 +1,12 @@
 <launch>
-  <arg name="image_topic" default="/camera/image_raw" />
-  <!--<arg name="argument" default="default_value" />-->
+
+  <arg name="config" default="$(find joint_state_mapper)/config/mapping.yaml"/>
 
   <node name="joint_state_mapper" pkg="joint_state_mapper" type="joint_state_mapper.py"
     output="screen" respawn="false">
     <remap from="joint_states" to="joint_states" />
     <remap from="joint_states_mapped" to="joint_states_mapped" />
+    <rosparam file="$(arg config)" command="load"/>
     <!--<param name="argument" value="$(arg argument)" />-->
   </node>
   

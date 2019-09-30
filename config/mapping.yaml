@@ -1,0 +1,12 @@
+# For each mapping
+#   from: name of joint
+#   to:   name of joint
+
+mapping: 
+  - 
+    from: 'a'
+    to:   'b'
+  - 
+    from: 'c'
+    to:   'd'
+    
