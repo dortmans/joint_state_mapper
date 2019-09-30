@@ -3,6 +3,7 @@
 """This node maps joint states"""
 
 # For Python2/3 compatibility
+from __future__ import print_function
 from __future__ import division
 
 import rospy
@@ -17,15 +18,29 @@ class JointStateMapper:
     """
 
     def __init__(self):
-        self.pose_subscriber = rospy.Subscriber("joint_states", 
+        self.joint_states_sub = rospy.Subscriber("joint_states", 
                           JointState, self.joint_states_callback, queue_size=1)
-        self.states_pub = rospy.Publisher("joint_states_mapped", 
-                          JointState, queue_size=1)      
+        self.joint_states_pub = rospy.Publisher("joint_states_mapped", 
+                          JointState, queue_size=1)
+        
+        self.mapping = rospy.get_param("~mapping", None)
+        #for m in self.mapping:
+        #  print( "{f} --> {t}".format(f=m['from'], t=m['to']) )
+       
 
-    def joint_states_callback(self, joint_state_msg):
+    def joint_states_callback(self, joint_state):
         """Handle JointState message
         """
-        pass
+        mapped_joint_state = JointState()
+        #mapped_joint_state.header = Header()
+        #mapped_joint_state.header.stamp = rospy.Time.now()
+        mapped_joint_state.header = joint_state.header
+        mapped_joint_state.name = []
+        mapped_joint_state.position = []
+        for i,m in enumerate(self.mapping):
+          if m['from'] in joint_state.name:
+            mapped_joint_state.name.append(m['to'])
+            mapped_joint_state.position.append(joint_state.position[i])
 
 
 def main(args):
