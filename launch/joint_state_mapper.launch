@@ -1,0 +1,13 @@
+<launch>
+  <arg name="image_topic" default="/camera/image_raw" />
+  <!--<arg name="argument" default="default_value" />-->
+
+  <node name="joint_state_mapper" pkg="joint_state_mapper" type="joint_state_mapper.py"
+    output="screen" respawn="false">
+    <remap from="joint_states" to="joint_states" />
+    <remap from="joint_states_mapped" to="joint_states_mapped" />
+    <!--<param name="argument" value="$(arg argument)" />-->
+  </node>
+  
+</launch>
+
