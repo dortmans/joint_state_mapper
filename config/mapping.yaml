@@ -2,11 +2,11 @@
 #   from: name of joint
 #   to:   name of joint
 
-mapping: 
+mapping:
   - 
-    from: 'a'
-    to:   'b'
+    from: 'RShoulderTheta'
+    to:   'RechterSchouder'
   - 
-    from: 'c'
-    to:   'd'
+    from: 'RElbowPhi'
+    to:   'RechterElleboog'
     

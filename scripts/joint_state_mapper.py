@@ -37,11 +37,14 @@ class JointStateMapper:
         mapped_joint_state.header = joint_state.header
         mapped_joint_state.name = []
         mapped_joint_state.position = []
-        for i,m in enumerate(self.mapping):
+        for m in self.mapping:
           if m['from'] in joint_state.name:
+            index = joint_state.name.index(m['from'])
             mapped_joint_state.name.append(m['to'])
-            mapped_joint_state.position.append(joint_state.position[i])
-
+            mapped_joint_state.position.append(joint_state.position[index])
+        
+        self.joint_states_pub.publish(mapped_joint_state)
+        #print(mapped_joint_state)
 
 def main(args):
     rospy.init_node('joint_state_mapper', anonymous=True)
